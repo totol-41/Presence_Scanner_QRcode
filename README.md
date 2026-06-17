@@ -65,6 +65,53 @@ Le modèle 3D du boîtier est disponible dans le dossier `3D`.
 
 - À compléter selon votre imprimante (hauteur de couche, remplissage, supports, etc.)
 
+## Installation
+
+### 1. Dépendances système
+
+```bash
+sudo apt update
+sudo apt install -y python3 python3-pip libsdl2-dev libsdl2-ttf-dev wiringpi gcc
+```
+
+> Sur les Raspberry Pi OS récents, `wiringpi` n'est plus dans les dépôts officiels : il faut alors l'installer depuis [le repo GitHub officiel de WiringPi](https://github.com/WiringPi/WiringPi).
+
+### 2. Dépendances Python
+
+```bash
+pip3 install -r requirements.txt --break-system-packages
+```
+
+### 3. Activer l'UART
+
+```bash
+sudo raspi-config
+```
+Interface Options → Serial Port → désactiver la console série, activer le matériel série → redémarrer.
+
+### 4. Compiler le programme
+
+```bash
+gcc main.c -o scanner -lwiringPi -lSDL2 -lSDL2_ttf -lpthread -lm
+```
+
+### 5. Configurer les identifiants HyperPlanning
+
+Les identifiants de connexion à l'API (`LOGIN`, `PASS`, `WSDL_URL`) sont définis en haut de `check_presence.py` et `init_absences.py`. Adapte-les à ton instance HyperPlanning.
+
+### 6. Démarrage automatique au boot
+
+Copie `scanner.service` dans `/etc/systemd/system/` en adaptant le `User`, le `WorkingDirectory` et le chemin `ExecStart` à ton installation (vérifie ton UID avec `id <utilisateur>` pour `XDG_RUNTIME_DIR`) :
+
+```bash
+sudo cp scanner.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable scanner.service
+sudo systemctl start scanner.service
+```
+
+Le scanner se lance désormais automatiquement en plein écran à chaque démarrage du Raspberry Pi.
+
 ## 🌐 Site Web
 
 ## 🔗 Accès à l'API Hyperplanning
