@@ -55,7 +55,8 @@ L'écran se connecte via le port DSI du Raspberry Pi.
 - GND → Pin 14 (GND)
 - I/O → Pin 12 (GPIO18)
 
-![Schéma de câblage](image/README/1781685596864.png)
+![schemaElectrique](image/README/schemaElectrique.png)
+
 
 ## 🧱 Boîtier 3D
 
@@ -67,7 +68,7 @@ Le modèle 3D du boîtier est disponible dans le dossier `3D`.
 
 ## Installation
 
-Tout d'abord, copier/coller le dossier ```harware``` dans le rasberry pi
+Tout d'abord, copier/coller le dossier ``harware`` dans le rasberry pi
 
 ### 1. Dépendances système
 
@@ -89,6 +90,7 @@ pip3 install -r requirements.txt --break-system-packages
 ```bash
 sudo raspi-config
 ```
+
 Interface Options → Serial Port → désactiver la console série, activer le matériel série → redémarrer.
 
 ### 4. Compiler le programme
@@ -132,7 +134,6 @@ Ce projet utilise Python 3 (minimum recommandé : Python 3.11, compatible avec P
 
 Il est fortement conseillé d'utiliser un environnement virtuel (`venv`) afin d'isoler les dépendances du projet.
 
-
 ### 📦 Installation des dépendances
 
 Depuis la racine du projet, exécute la commande suivante :
@@ -171,6 +172,7 @@ python website/website.py
 ## ⚙️ Installation pour la production
 
 ### 🐳 Docker
+
 Exemple de fichier `docker-compose.yml` :
 
 ```yaml
