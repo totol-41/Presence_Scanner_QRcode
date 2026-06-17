@@ -67,6 +67,8 @@ Le modèle 3D du boîtier est disponible dans le dossier `3D`.
 
 ## Installation
 
+Tout d'abord, copier/coller le dossier ```harware``` dans le rasberry pi
+
 ### 1. Dépendances système
 
 ```bash
