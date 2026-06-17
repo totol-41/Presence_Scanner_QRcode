@@ -1,0 +1,10 @@
+services:
+  pstqrcode:
+    build: .
+    image: ghcr.io/totol-41/presence_scanner_qrcode-website:latest
+    container_name: website
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    restart: unless-stopped

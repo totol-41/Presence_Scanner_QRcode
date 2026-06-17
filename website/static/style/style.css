@@ -1,0 +1,68 @@
+html {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .theme-icon-active {
+            margin-right: 5px;
+        }
+        
+/* =========================
+   Thème violet Bootstrap
+   ========================= */
+
+[data-bs-theme="light"] {
+    /* Couleurs générales */
+    --bs-body-bg: #f5f0ff;
+    --bs-body-color: #2d1b4e;
+
+    /* Couleurs principales */
+    --bs-primary: #7a3cff;
+    --bs-primary-rgb: 122, 60, 255;
+
+    --bs-info: #8f6bff;
+    --bs-success: #6f42c1;
+
+    /* Bordures */
+    --bs-border-color: #d6c9ff;
+}
+
+/* =========================
+   Navbar
+   ========================= */
+.navbar {
+    background-color: #7a3cff !important;
+}
+
+.navbar-brand {
+    color: #ffffff !important;
+}
+
+.navbar-brand:hover {
+    color: #e6dbff !important;
+}
+
+/* =========================
+   Boutons
+   ========================= */
+.btn-info {
+    --bs-btn-bg: #7a3cff;
+    --bs-btn-border-color: #7a3cff;
+    --bs-btn-hover-bg: #6930e0;
+    --bs-btn-hover-border-color: #6930e0;
+    --bs-btn-color: #ffffff;
+}
+
+.btn-success {
+    --bs-btn-bg: #6f42c1;
+    --bs-btn-border-color: #6f42c1;
+    --bs-btn-hover-bg: #5a379e;
+    --bs-btn-hover-border-color: #5a379e;
+    --bs-btn-color: #ffffff;
+}
+
+/* =========================
+   Formulaires
+   ========================= */
+.form-control:focus {
+    border-color: #7a3cff;
+    box-shadow: 0 0 0 0.25rem rgba(122, 60, 255, 0.25);
+}
