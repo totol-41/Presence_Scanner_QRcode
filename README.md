@@ -27,12 +27,28 @@ Ce dépôt contient les différentes parties du projet :
 
 ## 🖨️ Impression 3D
 
-- Bobine de PLA (mettre volume d'impression)
+Possibilité d'imprimer en PLA, mais pour une meilleure 
+solidité, veuillez privilégier l'ABS ou l'ASA.
+
+
+Taille : 179.998 x 149.998 x 80 mm ;
+Volume : 304598 mm3
 
 ## 🌐 Partie serveur
 
-- Un serveur Hyperplanning accessible via API WSDL
 - Une machine capable d'exécuter Docker
+- Un serveur Hyperplanning accessible via API WSDL
+
+
+### 🔗 Accès à l'API Hyperplanning
+
+Ce projet utilise l'API WSDL native d’Hyperplanning.
+
+Pour vérifier que l'API est accessible :
+
+```
+https://urlSiteHyperplanningAPI.com/hpsw/wsdl
+```
 
 ---
 
@@ -62,11 +78,7 @@ L'écran se connecte via le port DSI du Raspberry Pi.
 
 Le modèle 3D du boîtier est disponible dans le dossier `3D`.
 
-### Paramètres d'impression recommandés
-
-- À compléter selon votre imprimante (hauteur de couche, remplissage, supports, etc.)
-
-## Installation
+## ⚙️ Installation Boîtier
 
 Tout d'abord, copier/coller le dossier ``harware`` dans le rasberry pi
 
@@ -117,24 +129,13 @@ sudo systemctl start scanner.service
 Le scanner se lance désormais automatiquement en plein écran à chaque démarrage du Raspberry Pi.
 
 ## 🌐 Site Web
-
-## 🔗 Accès à l'API Hyperplanning
-
-Ce projet utilise l'API WSDL native d’Hyperplanning.
-
-Pour vérifier que l'API est accessible :
-
-```
-https://urlSiteHyperplanningAPI.com/hpsw/wsdl
-```
-
-## ⚙️ Installation pour le développement
+### ⚙️ Installation pour le développement
 
 Ce projet utilise Python 3 (minimum recommandé : Python 3.11, compatible avec Python 3.10).
 
 Il est fortement conseillé d'utiliser un environnement virtuel (`venv`) afin d'isoler les dépendances du projet.
 
-### 📦 Installation des dépendances
+#### 📦 Installation des dépendances
 
 Depuis la racine du projet, exécute la commande suivante :
 
@@ -142,7 +143,7 @@ Depuis la racine du projet, exécute la commande suivante :
 pip install -r website/requirements.txt
 ```
 
-### ⚙️ Configuration des variables d'environnement
+#### ⚙️ Configuration des variables d'environnement
 
 Les variables de configuration sont définies dans le fichier ``website/auth.py``.
 
@@ -161,7 +162,7 @@ ADMIN_LOGIN = os.environ.get("ADMIN_LOGIN", "admin")
 ADMIN_PASS = os.environ.get("ADMIN_PASS", "motdepasse")
 ```
 
-### ▶️ Lancement en développement
+#### ▶️ Lancement en développement
 
 Une fois la configuration terminée, vous pouvez lancer le projet avec :
 
@@ -169,9 +170,33 @@ Une fois la configuration terminée, vous pouvez lancer le projet avec :
 python website/website.py
 ```
 
-## ⚙️ Installation pour la production
+### ⚙️ Installation pour la production
 
-### 🐳 Docker
+#### 🐳 Docker
+##### Connecter-vous sur votre gitlab sur votre ordinateur
+1. Connectez-vous à GitLab
+  https://gitlab.esiea.fr/
+
+3. Cliquez sur votre avatar (en haut à droite)
+4. Allez dans :
+    Preferences → Access Tokens
+5. Rempli les champs :
+    Name : docker-registry (ou autre)
+
+    Expiration date : optionnel (mais recommandé)
+
+    Scopes à cocher :
+
+    ✅ read_registry
+
+    ✅ write_registry
+
+6. Clique sur Create token
+
+7. Connecte Docker à GitLab :
+```bash
+docker login registry.esiea.fr
+```
 
 Exemple de fichier `docker-compose.yml` :
 
@@ -179,7 +204,7 @@ Exemple de fichier `docker-compose.yml` :
 services:
   pstqrcode:
     build: .
-    image: ghcr.io/totol-41/presence_scanner_qrcode-website:latest
+    image: registry.esiea.fr/clech/presence_scanner_qrcode:v1
     container_name: website
     ports:
       - "5000:5000"
@@ -188,7 +213,7 @@ services:
     restart: unless-stopped
 ```
 
-### ⚙️ Configuration
+#### ⚙️ Configuration
 
 Variables d'environnement
 
@@ -214,6 +239,13 @@ que par l'utilisation de modules spécialisés transmettant un code déjà inter
 Cette approche réduirait la complexité globale du système tout en restant
 suffisamment performante pour le cas d’usage ciblé.
 
+Par ailleurs, il est important de noter qu’actuellement la connexion au système
+présente des lenteurs importantes. Afin d’améliorer l’expérience utilisateur et
+de limiter les temps de réponse, la mise en place d’un mécanisme de cache est
+envisagée. Celui-ci permettrait de stocker temporairement certaines données
+fréquemment utilisées, réduisant ainsi les appels répétés au serveur et améliorant
+significativement la fluidité globale du système.
+
 Enfin, plusieurs perspectives d'évolution plus innovantes sont envisagées.
 Le système pourrait notamment intégrer des cartes NFC contenant le QR code
 associé à l'utilisateur, ou une identification physique équivalente.
@@ -230,7 +262,7 @@ tout en limitant les besoins de régénération ou de support physique.
 
 # 👥 Contributeurs du projet
 
-- Antoine Balendier
+- Antoine Balandier
 - Anatole Barboux
 - Riwal Clech
 - Noémie Lenoël
